@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Index</title>
+</head>
+<body>
+<div>
+  <button onclick="insert()">글작성</button>
+  <br>
+  <button onclick="list()">리스트</button>
+  <br>
+  <button onclick="paging()">페이징</button>
+</div>
+</body>
+<script>
+    const insert = () => {
+        location.href = "/board";
+    }
+
+    const list = () => {
+        location.href = "/board/list";
+    }
+
+    const paging = () => {
+        location.href = "/board/paging";
+    }
+</script>
+</html>

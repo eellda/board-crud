@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>board list paging</title>
+</head>
+<body>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>title</th>
+    <th>writer</th>
+    <th>date</th>
+    <th>hits</th>
+  </tr>
+  <tr th:each="board: ${boardList}">
+    <td th:text="${board.id}"></td>
+    <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.title}"></a></td>
+    <td th:text="${board.writer}"></td>
+    <td th:text="*{#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    <td th:text="${board.hits}"></td>
+  </tr>
+</table>
+<a th:href="@{/board/paging(page = 1)}">first</a>
+<a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">prev</a>
+
+<span th:each="page: ${#numbers.sequence(startPage, endPage)}"><!-- link -->
+    <span th:if="${page == boardList.number + 1}" th:text="${page}"></span> <!-- page -->
+    <span th:unless="${page == boardList.number + 1}"> <!-- other page -->
+        <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+    </span>
+</span>
+
+
+<a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">next</a> <!-- 1 -> 3 = +2 -->
+<a th:href="@{/board/paging(page=${boardList.totalPages})}">Last</a>
+
+</body>
+</html>

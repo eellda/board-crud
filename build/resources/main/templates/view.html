@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>board view</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>id</th>
+    <td th:text="${board.id}"></td>
+  </tr>
+  <tr>
+    <th>title</th>
+    <td th:text="${board.title}"></td>
+  </tr>
+  <tr>
+    <th>writer</th>
+    <td th:text="${board.writer}"></td>
+  </tr>
+  <tr>
+    <th>content</th>
+    <td th:text="${board.content}"></td>
+  </tr>
+  <tr th:if="${board.fileAttached == 1}">
+    <th>image</th>
+    <td><img th:src="@{|/upload/${board.storedFileName}|}" alt=""></td>
+  </tr>
+  <tr>
+    <th>hits</th>
+    <td th:text="${board.hits}"></td>
+  </tr>
+  <tr>
+    <th>date</th>
+    <td th:text="${board.createdDate}"></td>
+  </tr>
+</table>
+<div>
+  <button onclick="list()">목록</button>
+  <br>
+  <button onclick="update()">수정</button>
+  <br>
+  <button onclick="del()">삭제</button>
+</div>
+</body>
+
+<script th:inline="javascript">
+    const list = () => {
+        const page = [[${page}]];
+        location.href = "/board/paging?page=" + page;
+    }
+
+
+    const update = () => {
+        const id = [[${board.id}]];
+        location.href = "/board/update/" + id;
+    }
+
+    const del = () => {
+        const id = [[${board.id}]];
+        location.href = "/board/delete/" + id;
+    }
+
+</script>
+</html>
